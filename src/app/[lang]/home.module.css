@@ -1,0 +1,258 @@
+/* ------------------------------------------------------- practice ledger */
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+}
+
+.split > div:first-child {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-lg);
+}
+
+.ledger {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  border-block-start: 1px solid var(--color-rule);
+}
+
+.ledgerRow {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: var(--space-md);
+  padding-block: var(--space-md);
+  border-block-end: 1px solid var(--color-rule);
+}
+
+.ledgerYear {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.14em;
+  color: var(--color-accent);
+  font-variant-numeric: tabular-nums;
+  padding-block-start: 0.3em;
+}
+
+.ledgerLabel {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  color: var(--color-ink-soft);
+  text-wrap: pretty;
+}
+
+/* ---------------------------------------------------------- work grid */
+
+.workGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-xl);
+}
+
+.gridFoot {
+  display: flex;
+  justify-content: flex-start;
+  padding-block-start: var(--space-md);
+}
+
+/* --------------------------------------------------------- family index */
+
+.families {
+  display: grid;
+  gap: 0;
+}
+
+.family {
+  display: grid;
+}
+
+.familyRow {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: var(--space-md);
+  padding-block: var(--space-lg);
+  align-items: start;
+}
+
+.familyRef {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.16em;
+  color: var(--color-accent);
+  padding-block-start: 0.45em;
+}
+
+.familyBody {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.familyTitle {
+  font-size: var(--text-2xl);
+  line-height: 1.08;
+  letter-spacing: -0.028em;
+}
+
+.familyLede {
+  font-size: var(--text-base);
+  line-height: 1.6;
+  max-width: 54ch;
+  color: var(--color-ink-soft);
+  text-wrap: pretty;
+}
+
+.familyCount {
+  display: none;
+  gap: 0.4rem;
+  align-items: baseline;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+  padding-block-start: 0.45em;
+}
+
+.familyCountLabel {
+  color: var(--color-grey-2);
+}
+
+/* ------------------------------------------------------------ quote band */
+
+.quoteBand {
+  padding-block: var(--space-4xl);
+  background: var(--color-paper-2);
+}
+
+.quoteInner {
+  display: grid;
+  gap: var(--space-lg);
+  padding-inline: var(--gutter);
+}
+
+.quote {
+  margin: 0;
+  min-width: 0;
+}
+
+/* The measure sits on the element that carries the display size — a `ch`
+   on the parent would resolve against the inherited 16px body font and
+   collapse this to a narrow, overflowing column. */
+.quoteText {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-2xl);
+  line-height: 1.14;
+  letter-spacing: -0.028em;
+  max-width: 30ch;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+.quoteText::before {
+  content: "“";
+  color: var(--color-accent);
+}
+
+.quoteText::after {
+  content: "”";
+  color: var(--color-accent);
+}
+
+.quoteAttribution {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+}
+
+/* --------------------------------------------------------------- enquiry */
+
+.enquiry {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+}
+
+.enquiryLinks {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-lg);
+  align-content: start;
+}
+
+.enquiryOffices {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.officeLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-on-ink-soft);
+  margin-block-end: 0.4rem;
+}
+
+.officeAddress {
+  display: grid;
+  gap: 0.1rem;
+  font-style: normal;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+}
+
+/* ---------------------------------------------------------- breakpoints */
+
+@media (min-width: 40rem) {
+  .workGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* The first dossier runs the full measure — the grid is deliberately uneven. */
+  .workGrid > :first-child {
+    grid-column: 1 / -1;
+  }
+
+  .enquiryOffices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 48rem) {
+  .familyRow {
+    grid-template-columns: 2.5rem minmax(0, 1fr) 7rem;
+  }
+
+  .familyCount {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .quoteText {
+    font-size: var(--text-3xl);
+  }
+}
+
+@media (min-width: 64rem) {
+  .split {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: var(--space-4xl);
+  }
+
+  .enquiry {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: var(--space-4xl);
+  }
+
+  .workGrid {
+    gap: var(--space-2xl);
+  }
+}

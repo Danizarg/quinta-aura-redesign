@@ -1,0 +1,134 @@
+.footer {
+  margin-block-start: var(--space-5xl);
+  padding-block-end: var(--space-xl);
+}
+
+.frame {
+  display: grid;
+  gap: var(--space-2xl);
+  padding-inline: var(--gutter);
+}
+
+.statement {
+  max-width: 28ch;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-2xl);
+  line-height: 1.14;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+}
+
+.cell {
+  display: grid;
+  gap: var(--space-sm);
+  align-content: start;
+}
+
+.cellLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+}
+
+.address {
+  display: grid;
+  gap: 0.1rem;
+  font-style: normal;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+}
+
+.contactStack {
+  display: grid;
+  justify-items: start;
+  gap: 0.35rem;
+}
+
+/* `min-height` rather than padding so the rule stays tight to the text while
+   the hit area still clears the 24px minimum. */
+.contactLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  width: fit-content;
+  max-width: 100%;
+  font-size: var(--text-sm);
+  border-block-end: 1px solid var(--color-rule);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.contactLink:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.links {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-sm);
+}
+
+/* Closing mark — the three words at scale, clipped to the page frame. */
+.mark {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 7vw, 6rem);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  color: var(--color-paper-3);
+  overflow-wrap: anywhere;
+  min-width: 0;
+  user-select: none;
+}
+
+.colophon {
+  display: grid;
+  gap: var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 40rem) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2xl);
+  }
+
+  .colophon {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
+  }
+
+  .colophon p:last-child {
+    text-align: right;
+  }
+}
+
+@media (min-width: 64rem) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .statement {
+    font-size: var(--text-3xl);
+  }
+}

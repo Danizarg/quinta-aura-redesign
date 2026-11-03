@@ -1,26 +1,285 @@
+/* Hallmark · macrostructure: Marquee Hero (HP1 vertical-rail) · tone: austere editorial luxury · anchor hue: warm-neutral 85°
+ * theme: custom/tuned · vibe: "Swiss monograph, concrete, Mediterranean light"
+ * paper oklch(96.8% 0.005 85) · accent oklch(52% 0.092 48) terracotta
+ * axes: light paper · grotesk-display · warm accent
+ * nav: N9 edge-aligned + fullscreen overlay · footer: Ft5 statement
+ * enrichment: E5 hand-built SVG (architectural drawing motifs) — Tier B
+ * pre-emit critique: P5 H5 E4 S5 R5 V4
+ */
+
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ---------------------------------------------------------------- tokens */
+
+/* Colours and the type scale live in `@theme`, so Tailwind emits them on
+   `:root` *and* exposes them as utilities (`bg-paper`, `text-ink`, `text-2xl`).
+   The fine editorial composition is written in CSS Modules against the same
+   variables, so there is one source of truth either way. */
+
+@theme {
+  /* Paper — warm white through to architectural grey */
+  --color-paper: oklch(96.8% 0.005 85);
+  --color-paper-2: oklch(93.6% 0.006 85);
+  --color-paper-3: oklch(89.4% 0.006 85);
+
+  /* Ink — warm near-black, never #000 */
+  --color-ink: oklch(17.5% 0.006 60);
+  --color-ink-soft: oklch(31% 0.006 60);
+
+  /* Architectural grey — cool against the warm paper, like concrete */
+  --color-grey: oklch(55% 0.005 240);
+  --color-grey-2: oklch(68% 0.004 240);
+
+  /* Restrained warm accent. Used for one mark per view, never as fill. */
+  --color-accent: oklch(52% 0.092 48);
+  --color-accent-soft: oklch(52% 0.092 48 / 0.16);
+
+  /* Hairlines — the drawing language */
+  --color-rule: oklch(17.5% 0.006 60 / 0.16);
+  --color-rule-soft: oklch(17.5% 0.006 60 / 0.08);
+  --color-rule-strong: oklch(17.5% 0.006 60 / 0.42);
+
+  --color-focus: oklch(42% 0.11 48);
+
+  /* Inverted surface for the project case studies */
+  --color-ink-surface: oklch(14.5% 0.006 60);
+  --color-ink-surface-2: oklch(20% 0.006 60);
+  --color-on-ink: oklch(94% 0.005 85);
+  --color-on-ink-soft: oklch(72% 0.005 85);
+  --color-rule-on-ink: oklch(94% 0.005 85 / 0.2);
+
+  /* Fluid scale. Display sizes are set for short statements only. */
+  --text-mono: 0.6875rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 1rem;
+  --text-lg: clamp(1.0625rem, 0.25vw + 1rem, 1.1875rem);
+  --text-xl: clamp(1.25rem, 0.6vw + 1.05rem, 1.5rem);
+  --text-2xl: clamp(1.5rem, 1.1vw + 1.2rem, 2.125rem);
+  --text-3xl: clamp(2rem, 2vw + 1.4rem, 3.25rem);
+  --text-4xl: clamp(2.5rem, 3.6vw + 1.4rem, 4.75rem);
+  --text-display-s: clamp(3rem, 6vw + 1rem, 7rem);
+  --text-display: clamp(3.5rem, 11vw + 0.5rem, 13rem);
+  /* Hero statement. Floor is set so the longest word ("Arquitectura.")
+     still fits inside the 320px gutter without breaking. */
+  --text-hero: clamp(2.6rem, 10.4vw, 11.5rem);
 }
 
+/* `inline` so the next/font variables set on <html> resolve rather than being
+   wrapped in another layer of indirection. */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
+  --font-body: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  /* 4-pt spacing scale */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 5rem;
+  --space-4xl: 7.5rem;
+  --space-5xl: 11rem;
+
+  /* Page frame — the architectural margin */
+  --gutter: clamp(1rem, 4vw, 4.5rem);
+  --measure: 62ch;
+
+  --rule: 1px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.55, 0, 1, 0.45);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 160ms;
+  --dur-mid: 320ms;
+  --dur-slow: 620ms;
+  --dur-reveal: 1100ms;
+}
+
+/* ------------------------------------------------------------------ base */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: clip;
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.62;
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: normal; /* display type is always roman */
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+p {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+  /* never animated — must appear instantly */
+}
+
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-ink);
+}
+
+/* ------------------------------------------------------- shared patterns */
+
+.frame {
+  padding-inline: var(--gutter);
+}
+
+/* Monumental display type. Optical tightening grows with size. */
+.display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-display);
+  line-height: 0.84;
+  letter-spacing: -0.045em;
+  text-transform: none;
+}
+
+.display-s {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-display-s);
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+}
+
+/* Technical annotation — the drawing label voice */
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+  font-variant-numeric: tabular-nums;
+}
+
+.lede {
+  font-size: var(--text-xl);
+  line-height: 1.5;
+  max-width: 38ch;
+  text-wrap: pretty;
+}
+
+.prose {
+  max-width: var(--measure);
+  font-size: var(--text-lg);
+  line-height: 1.68;
+  text-wrap: pretty;
+}
+
+.prose > * + * {
+  margin-top: 1.1em;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.hairline {
+  border: 0;
+  border-top: var(--rule) solid var(--color-rule);
+  margin: 0;
+}
+
+/* Blueprint field — the geometric overlay, drawn not imaged */
+.blueprint {
+  background-image:
+    linear-gradient(to right, var(--color-rule-soft) var(--rule), transparent var(--rule)),
+    linear-gradient(to bottom, var(--color-rule-soft) var(--rule), transparent var(--rule));
+  background-size: 4.5rem 4.5rem;
+}
+
+/* Reduced motion: spatial movement collapses to a short crossfade. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 150ms !important;
+    transition-property: opacity !important;
+    scroll-behavior: auto !important;
+  }
 }

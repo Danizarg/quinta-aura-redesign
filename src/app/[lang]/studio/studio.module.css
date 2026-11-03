@@ -1,0 +1,249 @@
+/* ------------------------------------------------------------- hero meta */
+
+.heroMeta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-lg);
+  margin: 0;
+}
+
+.heroMetaLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+}
+
+.heroMetaValue {
+  margin: 0.25rem 0 0;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  letter-spacing: -0.012em;
+}
+
+/* ----------------------------------------------------------------- intro */
+
+.introSplit {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+}
+
+.ledger {
+  display: grid;
+  margin: 0;
+  border-block-start: 1px solid var(--color-rule);
+  align-content: start;
+}
+
+.ledgerRow {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: var(--space-md);
+  padding-block: var(--space-md);
+  border-block-end: 1px solid var(--color-rule);
+}
+
+.ledgerYear {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.14em;
+  color: var(--color-accent);
+  font-variant-numeric: tabular-nums;
+  padding-block-start: 0.3em;
+}
+
+.ledgerLabel {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  color: var(--color-ink-soft);
+  text-wrap: pretty;
+}
+
+/* ------------------------------------------------------------ quote band */
+
+.quoteBand {
+  padding-block: var(--space-4xl);
+  background: var(--color-paper-2);
+}
+
+.quoteInner {
+  display: grid;
+  gap: var(--space-lg);
+  padding-inline: var(--gutter);
+}
+
+.quote {
+  margin: 0;
+  min-width: 0;
+}
+
+/* See home.module.css — the measure belongs on the display-sized element. */
+.quoteText {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-2xl);
+  line-height: 1.14;
+  letter-spacing: -0.028em;
+  max-width: 30ch;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+
+.quoteText::before {
+  content: "“";
+  color: var(--color-accent);
+}
+
+.quoteText::after {
+  content: "”";
+  color: var(--color-accent);
+}
+
+.quoteAttribution {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+}
+
+/* ------------------------------------------------------------------ team */
+
+.people {
+  display: grid;
+}
+
+.personRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  padding-block: var(--space-xl);
+}
+
+.personIdentity {
+  display: grid;
+  gap: 0.3rem;
+  align-content: start;
+  min-width: 0;
+}
+
+.personName {
+  font-size: var(--text-2xl);
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+}
+
+.personRole {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.personEducation {
+  margin-block-start: 0.35rem;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--color-grey);
+  text-wrap: pretty;
+}
+
+.personBody {
+  display: grid;
+  gap: 0.8em;
+  font-size: var(--text-base);
+  line-height: 1.62;
+  color: var(--color-ink-soft);
+  max-width: 54ch;
+  min-width: 0;
+  text-wrap: pretty;
+}
+
+.focus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.5rem;
+  align-content: start;
+}
+
+.focusItem {
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--color-rule);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+}
+
+/* --------------------------------------------------------------- sectors */
+
+.sectors {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border-block-start: 1px solid var(--color-rule);
+}
+
+.sector {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+  padding-block: var(--space-md);
+  border-block-end: 1px solid var(--color-rule);
+  font-size: var(--text-lg);
+  min-width: 0;
+}
+
+.sectorRef {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.14em;
+  color: var(--color-grey);
+  font-variant-numeric: tabular-nums;
+}
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xl);
+  padding-block-start: var(--space-md);
+}
+
+/* ------------------------------------------------------------ breakpoints */
+
+@media (min-width: 40rem) {
+  .heroMeta {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sectors {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-2xl);
+  }
+}
+
+@media (min-width: 48rem) {
+  .quoteText {
+    font-size: var(--text-3xl);
+  }
+}
+
+@media (min-width: 64rem) {
+  .introSplit {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: var(--space-4xl);
+  }
+
+  .personRow {
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr) minmax(0, 11rem);
+    gap: var(--space-2xl);
+  }
+}

@@ -1,0 +1,99 @@
+.hero {
+  position: relative;
+  display: grid;
+  align-content: end;
+  min-height: min(76svh, 42rem);
+  padding: calc(var(--space-4xl) + var(--space-xl)) var(--gutter) var(--space-2xl);
+  overflow: clip;
+  isolation: isolate;
+  border-block-end: 1px solid var(--color-rule);
+}
+
+.drawingWrap {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.field {
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  mask-image: radial-gradient(110% 80% at 85% 30%, #000 10%, transparent 68%);
+}
+
+.drawing {
+  position: absolute;
+  inset-block-start: 46%;
+  inset-inline-start: 72%;
+  /* See HomeHero — the base `svg { max-width: 100% }` would cap this. */
+  max-width: none;
+  width: min(135%, 1180px);
+  translate: -50% -50%;
+  color: var(--color-grey);
+  opacity: 0.55;
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-md);
+  max-width: 68rem;
+  min-width: 0;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+  font-variant-numeric: tabular-nums;
+}
+
+.label::before {
+  content: "";
+  flex: none;
+  width: 1.75rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.title {
+  font-size: var(--text-4xl);
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+  max-width: 24ch;
+}
+
+.lede {
+  margin-block-start: var(--space-xs);
+  font-size: var(--text-xl);
+  line-height: 1.48;
+  max-width: 46ch;
+  color: var(--color-ink-soft);
+  text-wrap: pretty;
+}
+
+.meta {
+  margin-block-start: var(--space-md);
+  padding-block-start: var(--space-md);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+@media (min-width: 48rem) {
+  .hero {
+    padding-block-end: var(--space-3xl);
+  }
+}
+
+@media (min-width: 64rem) {
+  .drawing {
+    width: min(78%, 1080px);
+    inset-inline-start: 78%;
+  }
+}

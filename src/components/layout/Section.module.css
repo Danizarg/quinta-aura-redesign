@@ -1,0 +1,76 @@
+.section {
+  padding-block: var(--space-3xl);
+}
+
+.ink {
+  background: var(--color-ink-surface);
+  color: var(--color-on-ink);
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-xl);
+  padding-inline: var(--gutter);
+}
+
+/* Stacked head: label, then heading, then lede — one column, always. */
+.head {
+  display: grid;
+  gap: var(--space-md);
+  max-width: 72ch;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+  font-variant-numeric: tabular-nums;
+}
+
+.ink .label {
+  color: var(--color-on-ink-soft);
+}
+
+.labelText::before {
+  content: "";
+  display: inline-block;
+  width: 1.75rem;
+  height: 1px;
+  margin-inline-end: 0.75rem;
+  vertical-align: 0.3em;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.title {
+  font-size: var(--text-3xl);
+  line-height: 1.02;
+  letter-spacing: -0.032em;
+}
+
+.lede {
+  font-size: var(--text-xl);
+  line-height: 1.5;
+  max-width: 44ch;
+  color: var(--color-ink-soft);
+  text-wrap: pretty;
+}
+
+.ink .lede {
+  color: var(--color-on-ink-soft);
+}
+
+@media (min-width: 48rem) {
+  .section {
+    padding-block: var(--space-4xl);
+  }
+
+  .inner {
+    gap: var(--space-2xl);
+  }
+}

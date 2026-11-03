@@ -1,0 +1,84 @@
+.link {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  /* never wraps to two lines — gate 49 */
+  width: fit-content;
+  max-width: 100%;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--color-ink);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.rail {
+  position: relative;
+  display: block;
+  height: 1px;
+  width: 100%;
+  min-width: 3.5rem;
+  background: var(--color-rule);
+}
+
+.tick {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  display: block;
+  height: 1px;
+  width: 40%;
+  background: var(--color-ink);
+  transform-origin: left center;
+  transition: width var(--dur-mid) var(--ease-out);
+}
+
+.link:hover .tick,
+.link:focus-visible .tick {
+  width: 100%;
+}
+
+.link:hover .label {
+  color: var(--color-accent);
+}
+
+.link:active .tick {
+  background: var(--color-accent);
+}
+
+/* Inverted surface variant for the case-study pages. */
+.onInk .label {
+  color: var(--color-on-ink);
+}
+
+.onInk .rail {
+  background: var(--color-rule-on-ink);
+}
+
+.onInk .tick {
+  background: var(--color-on-ink);
+}
+
+.onInk:hover .label {
+  color: var(--color-on-ink);
+}
+
+.onInk:hover .tick {
+  background: var(--color-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tick {
+    transition: none;
+  }
+
+  .link:hover .tick,
+  .link:focus-visible .tick {
+    width: 100%;
+  }
+}

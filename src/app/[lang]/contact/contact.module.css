@@ -1,0 +1,68 @@
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-2xl);
+}
+
+.column {
+  display: grid;
+  gap: var(--space-xl);
+  align-content: start;
+}
+
+.block {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-sm);
+  padding-block-start: var(--space-sm);
+  border-block-start: 1px solid var(--color-rule);
+}
+
+.blockLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+}
+
+.stack {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-md);
+}
+
+.address {
+  display: grid;
+  gap: 0.1rem;
+  font-style: normal;
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+}
+
+.formColumn {
+  display: grid;
+  gap: var(--space-lg);
+  align-content: start;
+  min-width: 0;
+}
+
+.formTitle {
+  font-size: var(--text-xl);
+  line-height: 1.12;
+  letter-spacing: -0.022em;
+}
+
+.appointment {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xl);
+}
+
+@media (min-width: 64rem) {
+  .grid {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: var(--space-4xl);
+  }
+}

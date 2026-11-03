@@ -1,0 +1,297 @@
+.skip {
+  position: absolute;
+  inset-inline-start: var(--gutter);
+  inset-block-start: -4rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: inset-block-start var(--dur-fast) var(--ease-out);
+}
+
+.skip:focus {
+  inset-block-start: 1rem;
+}
+
+/* ------------------------------------------------------------------- bar */
+
+.bar {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 60;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--gutter);
+  mix-blend-mode: difference;
+  color: var(--color-paper);
+  transition:
+    padding var(--dur-mid) var(--ease-out),
+    transform var(--dur-mid) var(--ease-out);
+}
+
+/* Retracted while reading down the page; returns on any upward scroll. */
+.barRetracted {
+  transform: translateY(-110%);
+}
+
+/* Keep the bar put when a keyboard user is inside it. */
+.bar:focus-within {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .barRetracted {
+    transform: none;
+  }
+}
+
+/* `mix-blend-mode: difference` lets the bar read over both the warm paper and
+   the inverted case-study surfaces without a backdrop plate. */
+
+.barCondensed {
+  padding-block: var(--space-sm);
+}
+
+.wordmark {
+  display: grid;
+  gap: 0.2rem;
+  line-height: 1;
+}
+
+.wordmarkName {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.wordmarkMeta {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.62;
+  transition: opacity var(--dur-mid) var(--ease-out);
+}
+
+.barCondensed .wordmarkMeta {
+  opacity: 0;
+}
+
+.barRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.locale,
+.trigger {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Padding pulled back by an equal negative margin: the hit area clears the
+   24px minimum without the bar's optical alignment moving. */
+.locale {
+  padding: 0.4rem 0.3rem 0.25rem;
+  margin: -0.4rem -0.3rem -0.1rem;
+  border-block-end: 1px solid currentColor;
+  background-clip: content-box;
+  opacity: 0.68;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.locale:hover {
+  opacity: 1;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-block: 0.4rem;
+  margin-block: -0.4rem;
+}
+
+.triggerLabel {
+  white-space: nowrap;
+}
+
+/* Two rules that cross into an X — a drawn mark, not an icon set. */
+.glyph {
+  position: relative;
+  display: block;
+  width: 1.125rem;
+  height: 0.6rem;
+}
+
+.glyph span {
+  position: absolute;
+  inset-inline: 0;
+  display: block;
+  height: 1px;
+  background: currentColor;
+  transition:
+    transform var(--dur-mid) var(--ease-in-out),
+    opacity var(--dur-fast) var(--ease-out);
+}
+
+.glyph span:first-child {
+  inset-block-start: 0;
+}
+
+.glyph span:last-child {
+  inset-block-end: 0;
+}
+
+.trigger:hover .glyph span:first-child {
+  transform: translateY(1px);
+}
+
+.trigger:hover .glyph span:last-child {
+  transform: translateY(-1px);
+}
+
+.glyphOpen span:first-child {
+  transform: translateY(0.3rem) rotate(13deg);
+}
+
+.glyphOpen span:last-child {
+  transform: translateY(-0.3rem) rotate(-13deg);
+}
+
+/* ----------------------------------------------------------------- panel */
+
+.panel {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  background: var(--color-ink-surface);
+  color: var(--color-on-ink);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.panelInner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+  min-height: 100%;
+  padding: calc(var(--space-4xl) + 1rem) var(--gutter) var(--space-2xl);
+  align-content: space-between;
+}
+
+.list {
+  display: grid;
+  gap: 0;
+  border-block-start: 1px solid var(--color-rule-on-ink);
+}
+
+.listItem {
+  border-block-end: 1px solid var(--color-rule-on-ink);
+}
+
+.listLink {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+  padding-block: clamp(0.7rem, 1.6vw, 1.1rem);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.listRef {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.14em;
+  color: var(--color-on-ink-soft);
+  font-variant-numeric: tabular-nums;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.listClip {
+  display: block;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.listLabel {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.25rem, 7.5vw, 5.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+}
+
+.listLink:hover .listRef,
+.listLink:focus-visible .listRef {
+  color: var(--color-accent);
+}
+
+.listLink[aria-current="page"] .listRef::after {
+  content: " ·";
+  color: var(--color-accent);
+}
+
+.listLink[aria-current="page"] .listLabel {
+  color: var(--color-on-ink-soft);
+}
+
+/* ----------------------------------------------------------------- aside */
+
+.panelAside {
+  display: grid;
+  gap: 0.3rem;
+  align-content: start;
+}
+
+.asideLabel {
+  margin-block-start: var(--space-md);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-on-ink-soft);
+}
+
+.asideOffice {
+  font-size: var(--text-base);
+}
+
+.asideContact {
+  width: fit-content;
+  max-width: 100%;
+  font-size: var(--text-base);
+  border-block-end: 1px solid var(--color-rule-on-ink);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+.asideContact:hover {
+  border-color: var(--color-accent);
+}
+
+@media (min-width: 48rem) {
+  .panelInner {
+    grid-template-columns: minmax(0, 1fr) 16rem;
+    align-items: end;
+    gap: var(--space-3xl);
+  }
+
+  .panelAside {
+    align-content: end;
+    padding-block-end: 0.75rem;
+  }
+}

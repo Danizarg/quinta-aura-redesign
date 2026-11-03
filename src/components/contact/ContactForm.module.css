@@ -1,0 +1,215 @@
+.form {
+  display: grid;
+  gap: var(--space-lg);
+  min-width: 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-lg);
+}
+
+.field {
+  display: grid;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.label {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+}
+
+.required {
+  color: var(--color-accent);
+}
+
+/* Inputs are ruled lines, not boxes — the drawing language again. */
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.6rem 0;
+  background: transparent;
+  border: 0;
+  border-block-end: 1px solid var(--color-rule-strong);
+  border-radius: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  line-height: 1.5;
+  color: var(--color-ink);
+  transition: border-color var(--dur-fast) var(--ease-out);
+  appearance: none;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 7rem;
+}
+
+.input:hover,
+.textarea:hover {
+  border-color: var(--color-ink-soft);
+}
+
+.input:focus-visible,
+.textarea:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 4px;
+  border-color: var(--color-ink);
+}
+
+.input[aria-invalid="true"],
+.textarea[aria-invalid="true"] {
+  border-color: var(--color-accent);
+}
+
+.error {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.06em;
+  color: var(--color-accent);
+}
+
+/* --------------------------------------------------------------- actions */
+
+.actions {
+  display: grid;
+  gap: var(--space-md);
+  padding-block-start: var(--space-xs);
+}
+
+.submit {
+  display: inline-grid;
+  gap: 0.5rem;
+  justify-items: start;
+  width: fit-content;
+  max-width: 100%;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    opacity var(--dur-fast) var(--ease-out);
+}
+
+.submitRail {
+  display: block;
+  width: 100%;
+  min-width: 8rem;
+  height: 1px;
+  background: var(--color-rule);
+  position: relative;
+  overflow: hidden;
+}
+
+.submitTick {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  display: block;
+  width: 45%;
+  height: 1px;
+  background: var(--color-ink);
+  transition: width var(--dur-mid) var(--ease-out);
+}
+
+.submit:hover .submitTick,
+.submit:focus-visible .submitTick {
+  width: 100%;
+}
+
+.submit:hover {
+  color: var(--color-accent);
+}
+
+.submit:active .submitTick {
+  background: var(--color-accent);
+}
+
+.submit:disabled {
+  cursor: progress;
+  opacity: 0.55;
+}
+
+.submit[data-state="sending"] .submitTick {
+  width: 100%;
+  background: var(--color-accent);
+  animation: pulse 1.1s var(--ease-in-out) infinite;
+}
+
+.submit[data-state="opened"] {
+  color: var(--color-ink-soft);
+}
+
+.submit[data-state="opened"] .submitTick {
+  width: 100%;
+  background: var(--color-accent);
+}
+
+.submit[data-state="error"] .submitTick {
+  width: 100%;
+  background: var(--color-accent);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.privacy {
+  font-size: var(--text-xs);
+  line-height: 1.55;
+  max-width: 50ch;
+  color: var(--color-grey);
+  text-wrap: pretty;
+}
+
+/* Reserved height, so announcing status never nudges the form. */
+.status {
+  min-height: 3rem;
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  max-width: 54ch;
+  color: var(--color-ink-soft);
+  text-wrap: pretty;
+}
+
+.statusLink {
+  border-block-end: 1px solid var(--color-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .submit[data-state="sending"] .submitTick {
+    animation: none;
+  }
+
+  .submitTick {
+    transition: none;
+  }
+
+  .submit:hover .submitTick,
+  .submit:focus-visible .submitTick {
+    width: 100%;
+  }
+}
+
+@media (min-width: 40rem) {
+  .row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-xl);
+  }
+}

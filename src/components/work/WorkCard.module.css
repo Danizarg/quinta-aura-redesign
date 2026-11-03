@@ -1,0 +1,116 @@
+.card {
+  min-width: 0;
+}
+
+.link {
+  display: grid;
+  gap: var(--space-md);
+  min-width: 0;
+}
+
+/* ----------------------------------------------------------------- plate */
+
+.plate {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--color-paper-2);
+  transition: background-color var(--dur-slow) var(--ease-out);
+}
+
+.wide .plate {
+  aspect-ratio: 16 / 9;
+}
+
+.field {
+  position: absolute;
+  inset: 0;
+  opacity: 0.7;
+}
+
+.drawing {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--color-grey);
+  /* The mask is the hover transition: the drawing is wiped across. */
+  mask-image: linear-gradient(100deg, #000 0 42%, rgb(0 0 0 / 0.35) 58%, rgb(0 0 0 / 0.35) 100%);
+  mask-size: 240% 100%;
+  mask-position: 100% 0;
+  transition:
+    mask-position var(--dur-slow) var(--ease-in-out),
+    color var(--dur-slow) var(--ease-out);
+}
+
+.link:hover .plate,
+.link:focus-visible .plate {
+  background-color: var(--color-paper-3);
+}
+
+.link:hover .drawing,
+.link:focus-visible .drawing {
+  mask-position: 0 0;
+  color: var(--color-ink);
+}
+
+.ref {
+  position: absolute;
+  inset-block-end: 0.75rem;
+  inset-inline-start: 0.875rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.16em;
+  color: var(--color-grey);
+  font-variant-numeric: tabular-nums;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.link:hover .ref {
+  color: var(--color-accent);
+}
+
+/* ------------------------------------------------------------------ body */
+
+.body {
+  display: grid;
+  gap: 0.35rem;
+  padding-block-start: var(--space-sm);
+  border-block-start: 1px solid var(--color-rule);
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--text-xl);
+  line-height: 1.1;
+  letter-spacing: -0.024em;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.link:hover .title {
+  color: var(--color-accent);
+}
+
+.discipline {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+}
+
+.summary {
+  margin-block-start: 0.35rem;
+  font-size: var(--text-sm);
+  line-height: 1.58;
+  color: var(--color-ink-soft);
+  max-width: 46ch;
+  text-wrap: pretty;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawing {
+    transition: none;
+    mask-image: none;
+  }
+}
