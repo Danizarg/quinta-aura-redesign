@@ -9,6 +9,7 @@ import { Rule } from "@/components/ui/Reveal";
 import { getDictionary } from "@/content/dictionary";
 import { site } from "@/content/site";
 import { isLocale, locales, type Locale } from "@/lib/i18n";
+import { alternates } from "@/lib/seo";
 
 import styles from "./contact.module.css";
 
@@ -30,7 +31,7 @@ export async function generateMetadata({
       lang === "es"
         ? "Avenida Ricardo Soriano 66, Oficina 5, Marbella. Teléfono +34 639 58 11 88. Solicite una cita sin compromiso."
         : "Avenida Ricardo Soriano 66, Office 5, Marbella. Telephone +34 639 58 11 88. Request an appointment with no obligation.",
-    alternates: { canonical: `/${lang}/contact` },
+    alternates: alternates(lang, "contact"),
   };
 }
 

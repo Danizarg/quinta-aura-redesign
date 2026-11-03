@@ -8,6 +8,7 @@ import WorkCard from "@/components/work/WorkCard";
 import { getDictionary } from "@/content/dictionary";
 import { work } from "@/content/work";
 import { href, isLocale, locales, type Locale } from "@/lib/i18n";
+import { alternates } from "@/lib/seo";
 
 import styles from "./projects.module.css";
 
@@ -29,7 +30,7 @@ export async function generateMetadata({
       lang === "es"
         ? "Once dosieres de trabajo: vivienda, industrial, urbanización, eficiencia energética, peritaje, due diligence y comunidades."
         : "Eleven work dossiers: housing, industrial, urbanisation, energy efficiency, expert reports, due diligence and communities.",
-    alternates: { canonical: `/${lang}/projects` },
+    alternates: alternates(lang, "projects"),
   };
 }
 

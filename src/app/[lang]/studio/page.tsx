@@ -15,6 +15,7 @@ import {
   timeline,
 } from "@/content/studio";
 import { href, isLocale, locales, type Locale } from "@/lib/i18n";
+import { alternates } from "@/lib/seo";
 
 import styles from "./studio.module.css";
 
@@ -36,7 +37,7 @@ export async function generateMetadata({
       lang === "es"
         ? "Quinta Aura, despacho de consultoría, arquitectura técnica e ingeniería fundado en Marbella en 2001. Equipo, trayectoria y colaboradores."
         : "Quinta Aura, a consultancy, technical architecture and engineering practice founded in Marbella in 2001. Team, record and collaborators.",
-    alternates: { canonical: `/${lang}/studio` },
+    alternates: alternates(lang, "studio"),
   };
 }
 

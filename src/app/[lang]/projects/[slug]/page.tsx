@@ -11,6 +11,7 @@ import { plateFor } from "@/content/plates";
 import { site } from "@/content/site";
 import { getWork, neighbours, work } from "@/content/work";
 import { href, isLocale, locales, needsReview, type Locale } from "@/lib/i18n";
+import { alternates } from "@/lib/seo";
 
 import styles from "./case.module.css";
 
@@ -30,7 +31,7 @@ export async function generateMetadata({
   return {
     title: entry.title[lang],
     description: entry.summary[lang],
-    alternates: { canonical: `/${lang}/projects/${slug}` },
+    alternates: alternates(lang, `projects/${slug}`),
     openGraph: {
       title: `${entry.title[lang]} · ${site.name}`,
       description: entry.summary[lang],

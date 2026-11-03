@@ -9,6 +9,7 @@ import SiteNav from "@/components/nav/SiteNav";
 import { getDictionary } from "@/content/dictionary";
 import { site } from "@/content/site";
 import { htmlLang, isLocale, locales, type Locale } from "@/lib/i18n";
+import { alternates } from "@/lib/seo";
 
 /* Monumental grotesque display, editorial serif body, technical mono labels. */
 const archivo = Archivo({
@@ -48,7 +49,8 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
 
-  const dict = getDictionary(lang);
+  const locale = lang;
+  const dict = getDictionary(locale);
   const title =
     lang === "es"
       ? "Quinta Aura · Arquitectura e ingeniería en Marbella"
@@ -61,14 +63,7 @@ export async function generateMetadata({
       template: `%s · ${site.name}`,
     },
     description: dict.meta.tagline,
-    alternates: {
-      canonical: `/${lang}`,
-      languages: {
-        "es-ES": "/es",
-        "en-GB": "/en",
-        "x-default": "/es",
-      },
-    },
+    alternates: alternates(locale),
     openGraph: {
       type: "website",
       siteName: site.name,

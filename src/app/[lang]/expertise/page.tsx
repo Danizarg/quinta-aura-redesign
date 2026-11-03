@@ -9,6 +9,7 @@ import { getDictionary } from "@/content/dictionary";
 import { families, servipacks } from "@/content/expertise";
 import { getWork } from "@/content/work";
 import { href, isLocale, locales, type Locale } from "@/lib/i18n";
+import { alternates } from "@/lib/seo";
 
 import styles from "./expertise.module.css";
 
@@ -30,7 +31,7 @@ export async function generateMetadata({
       lang === "es"
         ? "Arquitectura y edificación, energía y eficiencia, consultoría y peritaje, comunidades y administradores de fincas. Servicios del despacho en Marbella y Málaga."
         : "Architecture and building, energy and efficiency, advisory and expert reports, communities and property managers. Services across Marbella and Málaga.",
-    alternates: { canonical: `/${lang}/expertise` },
+    alternates: alternates(lang, "expertise"),
   };
 }
 

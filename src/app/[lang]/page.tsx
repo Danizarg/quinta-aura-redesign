@@ -12,6 +12,7 @@ import { site } from "@/content/site";
 import { founderStatement, studioIntro, timeline } from "@/content/studio";
 import { work } from "@/content/work";
 import { href, isLocale, type Locale } from "@/lib/i18n";
+import { alternates } from "@/lib/seo";
 
 import styles from "./home.module.css";
 
@@ -32,7 +33,7 @@ export async function generateMetadata({
       lang === "es"
         ? "Quinta Aura es un despacho de arquitectura técnica e ingeniería en Marbella y San Pedro de Alcántara: dirección de obra, eficiencia energética, peritaje y due diligence."
         : "Quinta Aura is a technical architecture and engineering practice in Marbella and San Pedro de Alcántara: construction management, energy efficiency, expert reports and due diligence.",
-    alternates: { canonical: `/${lang}` },
+    alternates: alternates(lang),
   };
 }
 
